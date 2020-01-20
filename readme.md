@@ -1,6 +1,6 @@
 # Spring JPA project
 This project demonstrates the use of Spring JPA library framework that 
-enables you to access to the sample database sakila.
+enables you to access to the sample database `sakila`.
 
 ## Assumptions
 MySql should be up and running. If not, start it up as a container. The script to start MySQL
@@ -51,10 +51,19 @@ java -cp ./target/spring-jpa.jar
 ```
 ## REST APIs
 Provided endpoints are:
-- get all actors: `http://localhost:8080/actor`
+- get all actors: `http://localhost:8080/actor`. 
+For example, `curl http://localhost:8080/actor | jq` 
 - get actor by id: `http://localhost:8080/actor/{id}`
+For example, `curl http://localhost:8080/actor/199 | jq`
 - get list of actors by last name: `http://localhost:8080/actor/{last_name}`
- 
+For example, `curl http://localhost:8080/last_name/willis | jq`
+
+You can install `jq` application via this command:
+
+```shell script
+sudo apt install jq
+
+```
  
 ## SWAGGER UI
 Visit this website: `http://localhost:8080`. Try out some examples with this information:
