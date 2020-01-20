@@ -3,12 +3,21 @@ This project demonstrates the use of Spring JPA library framework that
 enables you to access to the sample database sakila.
 
 ## Assumptions
-MySql should be up and running.
+MySql should be up and running. If not, start it up as a container. The script to start MySQL
+up as in a container is in the container folder.
 
 ```shell script
 cd /home/student/cisc_525/container
 ./mysql.sh
 ```
+
+To find out the IP address of MySQL database that runs as a container, do these:
+
+```shell script
+docker inspect mysql | grep -i ipaddress
+```
+
+
 ### MySql database and logins
 - database name: `sakila`
 - userid/password: `student/password`
@@ -19,6 +28,17 @@ cd /home/student/cisc_525/container
 ```
 
 ## Run Spring Boot application
+To run the application successfully, you must provide the following environment variables:
+
+```shell script
+export MYSQL_HOST=x.x.x.x
+export MYSQL_PORT=3306
+export MYSQL_USER=student
+export MYSQL_PASSWORD=password
+```
+
+You then can run the application using either one of these commands: 
+
 ```shell script
 ./mvnw clean spring-boot:run
 
@@ -39,5 +59,5 @@ Provided endpoints are:
 ## SWAGGER UI
 Visit this website: `http://localhost:8080`. Try out some examples with this information:
 
-- id = 1 through 100
-- last names: Willis & ZellWeger
+- id = `1` through `100`
+- last names: `Willis` & `ZellWeger`
