@@ -1,11 +1,13 @@
 package com.drkiettran.springjpa.repository;
 
-import java.util.List;
-
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.drkiettran.springjpa.model.Actor;
 
+@Repository
 public interface ActorRepository extends CrudRepository<Actor, Long> {
-	List<Actor> findByLastName(String lastName);
+	@Query("SELECT a FROM Actor a WHERE a.lastName = ?1")
+	Iterable<Actor> findByLastName(String lastName);
 }

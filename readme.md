@@ -7,8 +7,8 @@ MySql should be up and running. If not, start it up as a container. The script t
 up as in a container is in the container folder.
 
 ```shell script
-cd /home/student/cisc_525/container
-./mysql.sh
+cd /home/student/cisc_525/containers
+./mysql8.sh
 ```
 
 To find out the IP address of MySQL database that runs as a container, do these:
@@ -17,10 +17,21 @@ To find out the IP address of MySQL database that runs as a container, do these:
 docker inspect mysql | grep -i ipaddress
 ```
 
-
-### MySql database and logins
+## MySql database and logins
 - database name: `sakila`
 - userid/password: `student/password`
+
+
+## Create schema Populate data:
+Two schemas are needed for the unit tests: `sakila` and `sakila_test`. The latter is located at `src/test/resources/schema.sql` while the former at `src/main/resources/schema.sql`. The sample data is also needed to be populated to the regular `sakila` schema and is located at `src/test/resources/data.sql`
+
+```shell
+mysql -h 172.17.0.6 -P 3306 -u student -p < src/main/resources/schema.sql
+mysql -h 172.17.0.6 -P 3306 -u student -p < src/test/resources/schema.sql
+mysql -h 172.17.0.6 -P 3306 -u student -p < src/test/resources/data.sql
+```
+
+
 
 ## Build software
 ```shell script
@@ -55,7 +66,7 @@ Provided endpoints are:
 For example, `curl http://localhost:8080/actor | jq` 
 - get actor by id: `http://localhost:8080/actor/{id}`
 For example, `curl http://localhost:8080/actor/199 | jq`
-- get list of actors by last name: `http://localhost:8080/actor/{last_name}`
+- get list of actors by last name: `http://localhost:8080/actor/last_name/{last_name}`
 For example, `curl http://localhost:8080/last_name/willis | jq`
 
 You can install `jq` application via this command:
@@ -66,7 +77,9 @@ sudo apt install jq
 ```
  
 ## SWAGGER UI
-Visit this website: `http://localhost:8080`. Try out some examples with this information:
+Visit this website: `http://localhost:8080/swagger-ui.html`. Try out some examples with this information:
+
+for findAll: required headers: `content-type - application/json`
 
 - id = `1` through `100`
 - last names: `Willis` & `ZellWeger`
