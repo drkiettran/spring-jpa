@@ -25,7 +25,7 @@ docker inspect mysql | grep -i ipaddress
 ## Create schema Populate data:
 Two schemas are needed for the unit tests: `sakila` and `sakila_test`. The latter is located at `src/test/resources/schema.sql` while the former at `src/main/resources/schema.sql`. The sample data is also needed to be populated to the regular `sakila` schema and is located at `src/test/resources/data.sql`
 
-```shell
+```shell script
 mysql -h 172.17.0.6 -P 3306 -u student -p < src/main/resources/schema.sql
 mysql -h 172.17.0.6 -P 3306 -u student -p < src/test/resources/schema.sql
 mysql -h 172.17.0.6 -P 3306 -u student -p < src/test/resources/data.sql
@@ -35,7 +35,13 @@ mysql -h 172.17.0.6 -P 3306 -u student -p < src/test/resources/data.sql
 
 ## Build software
 ```shell script
-./mvnw clean package
+./mvnw clean package -DskipTests
+```
+
+or this way if you have a ready mysql database for running unit tests and integration tests (unit tests as well).
+
+```shell script
+./mvnw clean install -DMYSQL_HOST=172.17.0.6 -DMYSQL_PORT=3306 -DMYSQL_USER=student -DMYSQL_PASSWORD=password verify
 ```
 
 ## Run Spring Boot application
